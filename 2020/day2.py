@@ -63,6 +63,7 @@ def count_valid_passwords(filepath):
 
 print("Part1:", count_valid_passwords("./day2_input.txt"))
 
+
 def count_valid_passwords2(filepath):
     """Given an input file of passwords and policies, return the number
     of passwords that satisfy its policy.
@@ -88,5 +89,6 @@ def count_valid_passwords2(filepath):
             counter += 1
 
     return counter
+
 
 print("Part 2:", count_valid_passwords2("./day2_input.txt"))

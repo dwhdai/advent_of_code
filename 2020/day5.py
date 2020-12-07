@@ -91,6 +91,33 @@ def calculate_all_seat_ids(seats):
     return seat_ids
 
 
+def find_my_seat(seat_ids):
+    """Given a list of seat IDs, find my seat ID. My seat ID should be
+    the one that is missing from the sequence of seat IDs, where 
+    my_seat_id +/- 1 both exist
+
+    Args:
+        seat_ids (list): list of seat_ids
+
+    Returns:
+        my_seat_id (int): my seat ID
+    """
+    
+    # Sort seat_ids
+    seat_ids.sort()
+    
+    # For each sorted list element, find the element where element + 1
+    # does not exist
+    my_seat_id = int()
+    for id in seat_ids:
+        if id + 1 not in seat_ids:
+            return id + 1
+
+    return "Not Found"
+
+
 seats = import_seats("./day5_input.txt")
 seat_ids = calculate_all_seat_ids(seats)
 print("Part 1:", max(seat_ids))
+
+print("Part 2:", find_my_seat(seat_ids))

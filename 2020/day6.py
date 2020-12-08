@@ -1,6 +1,5 @@
 import string
 
-
 def import_responses(filepath):
     """Given a filepath, read in the text file containing the responses
     as a list object. Each element in the list is also a list object,
@@ -38,7 +37,6 @@ def count_yes(group):
 
     return count
 
-
 def count_all_yes(group):
     """Given a group's responses, count the number of questions to which
     EVERYONE answered "yes"
@@ -49,7 +47,6 @@ def count_all_yes(group):
     Returns:
         count (int): number of questions where everyone answered "yes"
     """
-
     count = 0
     # initialize intersection to be all lowercase characters
     all_yes = set(string.ascii_lowercase)
@@ -73,7 +70,6 @@ def group_count(responses):
     counts = [count_yes(group) for group in responses]
 
     return counts
-
 
 def group_all_count(responses):
     """Given a list of responses, for each group, count the number of questions

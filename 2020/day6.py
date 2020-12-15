@@ -47,7 +47,7 @@ def count_all_yes(group):
     Returns:
         count (int): number of questions where everyone answered "yes"
     """
-    count = 0
+
     # initialize intersection to be all lowercase characters
     all_yes = set(string.ascii_lowercase)
     for response in group:

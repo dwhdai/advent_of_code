@@ -1,48 +1,5 @@
-# numbers = [7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1]
-
-# boards = [
-# [22 ,13 ,17 ,11 , 0,
-#  8 , 2 ,23 , 4 ,24,
-# 21 , 9 ,14 ,16 , 7,
-#  6 ,10 , 3 ,18 , 5,
-#  1 ,12 ,20 ,15 ,19],
-
-# [3 ,15 , 0 , 2 ,22,
-#  9 ,18 ,13 ,17 , 5,
-# 19 , 8 , 7 ,25 ,23,
-# 20 ,11 ,10 ,24 , 4,
-# 14 ,21 ,16 ,12 , 6],
-
-# [14 ,21 ,17 ,24 , 4,
-# 10 ,16 ,15 , 9 ,19,
-# 18 , 8 ,23 ,26 ,20,
-# 22 ,11 ,13 , 6 , 5,
-#  2 , 0 ,12 , 3 , 7]
-#  ]
-
-# input = """7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
-
-# 22 13 17 11  0
-#  8  2 23  4 24
-# 21  9 14 16  7
-#  6 10  3 18  5
-#  1 12 20 15 19
-
-#  3 15  0  2 22
-#  9 18 13 17  5
-# 19  8  7 25 23
-# 20 11 10 24  4
-# 14 21 16 12  6
-
-# 14 21 17 24  4
-# 10 16 15  9 19
-# 18  8 23 26 20
-# 22 11 13  6  5
-#  2  0 12  3  7
-# """
-
 from dataclasses import dataclass
-from typing import List, Union
+from typing import List, Union, Tuple
 
 
 @dataclass
@@ -89,16 +46,38 @@ def get_remaining_numbers(board: Board) -> List[int]:
     remaining_numbers = [num for line in board.horizontal_lines for num in line]
     return remaining_numbers
 
-def part1(numbers: List[int], board_list: Boards) -> Union[None, int]:
-    
-    for i, n in enumerate(numbers):
-        for j, board in enumerate(board_list.boards):
+def part1(numbers: List[int], board_list: Boards) -> Union[None, Tuple[ int, int ]]:
+    for n in numbers:
+        for i, board in enumerate(board_list.boards):
             number_in_board = any([n in l for l in board.horizontal_lines])
             if number_in_board:
                 remove_number_from_board(n, board)
 
             if winner(board):
                 remaining_numbers = get_remaining_numbers(board)
-                return n * sum(remaining_numbers)
+                return i, n * sum(remaining_numbers)
 
-print(part1(numbers, board_list))
+def part2(numbers: List[int], board_list: Boards):
+    n_boards = len(board_list.boards)
+    board_won = []
+
+    for n in numbers:
+        for i, board in enumerate(board_list.boards):
+            number_in_board = any([n in l for l in board.horizontal_lines])
+            if number_in_board:
+                remove_number_from_board(n, board)
+            if winner(board):
+                if i not in board_won:
+                    board_won.append(i)
+                if len(board_won) == n_boards:
+                    remaining_numbers = get_remaining_numbers(board)
+                    return board_won[-1], n * sum(remaining_numbers)
+
+if __name__ == "__main__":
+    print(part1(numbers, board_list))
+    print(part2(numbers, board_list))
+
+
+
+
+

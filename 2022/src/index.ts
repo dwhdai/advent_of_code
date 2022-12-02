@@ -1,4 +1,4 @@
-import { run } from "./day1"
+import { part1, part2 } from "./day1"
 
-const data = [1,2,3]
-console.log(run(data));
+console.log(part1())
+console.log(part2())
